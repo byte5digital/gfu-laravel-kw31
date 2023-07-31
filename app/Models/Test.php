@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereUserId($value)
+ * @property-read \App\Models\User|null $user
  * @mixin \Eloquent
  */
 class Test extends Model

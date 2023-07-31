@@ -1,13 +1,40 @@
 <?php
 
-namespace App\Models;
+// @formatter:off
+/**
+ * A helper file for your Eloquent Models
+ * Copy the phpDocs from this file to the correct Model,
+ * And remove them from this file, to prevent double declarations.
+ *
+ * @author Barry vd. Heuvel <barryvdh@gmail.com>
+ */
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
+namespace App\Models{
+/**
+ * App\Models\Test
+ *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $name
+ * @property int $user_id
+ * @method static \Database\Factories\TestFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Test newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Test newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Test query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Test whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Test whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Test whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Test whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Test whereUserId($value)
+ * @mixin \Eloquent
+ * @property-read \App\Models\User|null $user
+ */
+	class Test extends \Eloquent {}
+}
+
+namespace App\Models{
 /**
  * App\Models\User
  *
@@ -35,47 +62,10 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Test> $tests
  * @property-read int|null $tests_count
- * @mixin \Eloquent
  */
-class User extends Authenticatable
-{
-    use HasApiTokens, HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
-
-    public function tests(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Test::class);
-    }
+	class User extends \Eloquent {}
 }
+
