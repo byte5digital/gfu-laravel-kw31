@@ -24,7 +24,8 @@ class UpdateTestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50']
+            'name' => ['required', 'string', 'max:50'],
+            'user_id' => ['sometimes', 'exists:users,id'],
         ];
     }
 

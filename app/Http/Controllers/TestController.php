@@ -30,7 +30,8 @@ class TestController extends Controller
      */
     public function store(StoreTestRequest $request)
     {
-        return new TestResource(Test::create($request->validated()));
+
+        return new TestResource(Test::create($request->all()));
     }
 
     /**
@@ -54,7 +55,7 @@ class TestController extends Controller
      */
     public function update(UpdateTestRequest $request, Test $test)
     {
-        $test->update(['name'=>$request->get('name')]);
+        $test->update($request->validated());
         $test->save();
         return new TestResource($test);
     }

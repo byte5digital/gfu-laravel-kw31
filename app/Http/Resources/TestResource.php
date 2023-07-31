@@ -19,6 +19,8 @@ class TestResource extends JsonResource
         return [
             'id'=> $this->id,
             'name'=> $this->name,
+            'user'=> new UserResource($this->user),
+            'user_raw' => $this->user
         ];
     }
 }
