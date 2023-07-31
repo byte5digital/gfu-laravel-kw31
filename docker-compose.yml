@@ -1,0 +1,70 @@
+version: "3.2"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web-nginx
+    volumes:
+      - ./:/var/www/html:cached
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    networks:
+      - gfu
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: debug
+    volumes:
+      - ./storage:/var/www/html/storage:cached
+      - ./:/var/www/html:cached
+    depends_on:
+      - db
+    networks:
+      - gfu
+    deploy:
+      restart_policy:
+        condition: on-failure
+  redis:
+    image: redis:latest
+    networks:
+      - gfu
+    ports:
+      - "6379:6379"
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: debug
+    volumes:
+      - ./storage:/var/www/html/storage:cached
+      - ./:/var/www/html:cached
+    entrypoint: php /var/www/html/artisan schedule:work
+    depends_on:
+      - db
+    networks:
+      - gfu
+    deploy:
+      restart_policy:
+        condition: on-failure
+  db:
+    image: mariadb:10.5
+    environment:
+      MYSQL_ROOT_PASSWORD: laravel
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+    ports:
+      - "3337:3306"
+    volumes:
+      - gfumaria:/var/lib/mysql
+    networks:
+      - gfu
+
+networks:
+  gfu:
+volumes:
+  gfumaria:
