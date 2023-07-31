@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTestRequest;
 use App\Http\Requests\UpdateTestRequest;
+use App\Http\Resources\TestResource;
 use App\Models\Test;
 
 class TestController extends Controller
@@ -13,10 +14,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $allTests = Test::all();
-        foreach ($allTests as $test){
-        }
-        //
+       return TestResource::collection(Test::all());
     }
 
     /**
@@ -32,7 +30,7 @@ class TestController extends Controller
      */
     public function store(StoreTestRequest $request)
     {
-        Test::create($request->all());
+        return new TestResource(Test::create($request->validated()));
     }
 
     /**
@@ -40,7 +38,7 @@ class TestController extends Controller
      */
     public function show(Test $test)
     {
-        //
+        return new TestResource($test);
     }
 
     /**
@@ -56,7 +54,9 @@ class TestController extends Controller
      */
     public function update(UpdateTestRequest $request, Test $test)
     {
-        //
+        $test->update(['name'=>$request->get('name')]);
+        $test->save();
+        return new TestResource($test);
     }
 
     /**
