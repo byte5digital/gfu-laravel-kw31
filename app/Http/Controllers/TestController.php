@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTestRequest;
 use App\Http\Requests\UpdateTestRequest;
 use App\Http\Resources\TestResource;
 use App\Models\Test;
+use Illuminate\Http\JsonResponse;
 
 class TestController extends Controller
 {
@@ -65,6 +66,9 @@ class TestController extends Controller
      */
     public function destroy(Test $test)
     {
-        //
+        if ($test->delete()){
+            return new JsonResponse([], 201);
+        }
+        return new JsonResponse([], 400);
     }
 }

@@ -16,15 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('tests')->group(function () {
-    Route::get('/', [TestController::class, 'index'])->name('tests.index');
-    Route::post('/', [TestController::class, 'store'])->name('tests.store');
-    Route::get('/{test}', [TestController::class, 'show'])->name('tests.show');
-    Route::put('/{test}', [TestController::class, 'update'])->name('tests.update');
-    Route::delete('/{test}', [TestController::class, 'destroy'])->name('tests.destroy');
-});
 
-Route::prefix('users')->group(function () {
-    Route::post('/', [UserController::class, 'createUser'])->name('users.create');
-    Route::get('/', [UserController::class, 'index'])->name('users.index');
-});
+    Route::prefix('tests')->group(function () {
+        Route::get('/', [TestController::class, 'index'])->name('tests.index');
+        Route::post('/', [TestController::class, 'store'])->name('tests.store');
+        Route::get('/{test}', [TestController::class, 'show'])->name('tests.show');
+        Route::put('/{test}', [TestController::class, 'update'])->name('tests.update');
+        Route::delete('/{test}', [TestController::class, 'destroy'])->name('tests.destroy');
+    });
+
+    Route::prefix('users')->group(function () {
+        Route::post('/', [UserController::class, 'createUser'])->name('users.create');
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+    });
+
+
