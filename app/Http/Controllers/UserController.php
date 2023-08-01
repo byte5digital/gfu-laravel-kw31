@@ -19,4 +19,9 @@ class UserController extends Controller
         $users = User::all();
         return UserResource::collection($users);
     }
+
+    public function showUserList(Request $request)
+    {
+        return view('user.list', ['users' => User::all()]);
+    }
 }
