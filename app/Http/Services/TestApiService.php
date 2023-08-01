@@ -6,33 +6,40 @@ use App\Http\Contracts\User;
 use App\Models\Test;
 use Illuminate\Database\Eloquent\Collection;
 
-class TestService implements \App\Http\Contracts\TestContract
+class TestApiService implements \App\Http\Contracts\TestContract
 {
+
     public function getAllTests(): array
     {
-        return Test::all()->toArray();
+        $allTests = \Http::get('http://jsonplaceholder.typicode.com/todos')->json();
+        if (is_array($allTests)) {
+            $testDtos = array_map(function ($o) {
+                $testDto = new Test();
+                return $testDto->mapFromJsonResponse($o);
+            }, $allTests);
+            return $testDtos;
+        }
+        return [];
     }
 
     public function getTestById(int $id): Test|null
     {
-//        return Test::whereId($id)->first();
-//        return Test::whereIn('id', [2,3,4])->get();
-        return Test::find($id);
+        // TODO: Implement getTestById() method.
     }
 
     public function updateTestById(int $id, array $values): bool|null
     {
-        return Test::find($id)?->update($values);
+        // TODO: Implement updateTestById() method.
     }
 
     public function createTest(array $values): Test|null
     {
-        return Test::create($values);
+        // TODO: Implement createTest() method.
     }
 
     public function deleteTestById(int $id): bool|null
     {
-        return Test::find($id)?->delete();
+        // TODO: Implement deleteTestById() method.
     }
 
     public function attachUserToTest(User $user, int $id)

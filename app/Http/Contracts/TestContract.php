@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface TestContract
 {
-    public function getAllTests(): Collection;
+    public function getAllTests(): array;
 
     public function getTestById(int $id): Test|null;
 

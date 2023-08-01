@@ -36,5 +36,12 @@ class Test extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function mapFromJsonResponse(array $jsonObject): self
+    {
+        $this->name = $jsonObject['title'];
+        $this->user_id = $jsonObject['userId'];
+        $this->id = $jsonObject['id'];
+        return $this;
+    }
 
 }

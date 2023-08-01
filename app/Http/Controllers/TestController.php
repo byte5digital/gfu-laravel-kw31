@@ -37,8 +37,14 @@ class TestController extends Controller
      */
     public function store(StoreTestRequest $request)
     {
+        try{
+            return new TestResource($this->testContract->createTest($request->validated()));
+        }
+        catch (\Exception $exception){
+            \Log::error($exception->getMessage());
+            return new JsonResponse([], 400);
+        }
 
-        return new TestResource($this->testContract->createTest($request->validated()));
     }
 
     /**
@@ -63,7 +69,7 @@ class TestController extends Controller
     public function update(UpdateTestRequest $request, Test $test)
     {
 
-        return new TestResource($this->testContract->updateTestById($test->id, $request->validated()));
+        return $this->testContract->updateTestById($test->id, $request->validated());
     }
 
     /**
