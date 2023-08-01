@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Contracts\TestContract;
 use App\Http\Requests\StoreTestRequest;
 use App\Http\Requests\UpdateTestRequest;
 use App\Http\Resources\TestResource;
@@ -10,12 +11,17 @@ use Illuminate\Http\JsonResponse;
 
 class TestController extends Controller
 {
+
+    public function __construct(
+        protected TestContract $testContract
+    ){}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       return TestResource::collection(Test::all());
+       return TestResource::collection($this->testContract->getAllTests());
     }
 
     /**
@@ -32,7 +38,7 @@ class TestController extends Controller
     public function store(StoreTestRequest $request)
     {
 
-        return new TestResource(Test::create($request->all()));
+        return new TestResource($this->testContract->createTest($request->validated()));
     }
 
     /**
@@ -56,9 +62,8 @@ class TestController extends Controller
      */
     public function update(UpdateTestRequest $request, Test $test)
     {
-        $test->update($request->validated());
-        $test->save();
-        return new TestResource($test);
+
+        return new TestResource($this->testContract->updateTestById($test->id, $request->validated()));
     }
 
     /**
@@ -66,9 +71,7 @@ class TestController extends Controller
      */
     public function destroy(Test $test)
     {
-        if ($test->delete()){
-            return new JsonResponse([], 201);
-        }
-        return new JsonResponse([], 400);
+        $this->testContract->deleteTestById($test->id);
+        return new JsonResponse([], 201);
     }
 }
