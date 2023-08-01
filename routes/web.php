@@ -23,6 +23,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/users', [\App\Http\Controllers\UserController::class, 'showUserList'])->name('user.list');
+Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'editUser'])->name('user.edit');
+Route::put('/users/{user}', [\App\Http\Controllers\UserController::class, 'updateUser'])->name('user.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -15,12 +15,14 @@
                     <p>Erstellt</p>
                 </div>
                 @foreach ($users as $user)
+                    <a href="{{route('user.edit', $user->id)}}" class="hover:underline">
                     <div class="grid grid-cols-4">
                         <p>{{$user->id}}</p>
                         <p>{{$user->name}}</p>
                         <p>{{$user->email}}</p>
                         <p>{{$user->created_at}}</p>
                     </div>
+                    </a>
                 @endforeach
             </div>
         </div>
