@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\HelloWorldEvent;
 use App\Http\Contracts\TestContract;
 use App\Http\Requests\StoreTestRequest;
 use App\Http\Requests\UpdateTestRequest;
@@ -16,6 +17,11 @@ class TestController extends Controller
     public function __construct(
         protected TestContract $testContract
     ) {
+    }
+
+    public function triggerBackendEvent()
+    {
+        event(new HelloWorldEvent());
     }
 
     #[OA\Get(

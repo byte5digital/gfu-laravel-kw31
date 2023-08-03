@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+    Route::post('/triggerws', [TestController::class, 'triggerBackendEvent'])->name('trigger.ws');
 
     Route::post('/login', [\App\Http\Controllers\AuthTokenController::class, 'login'])->name('token.login');
 
