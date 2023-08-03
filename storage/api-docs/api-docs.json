@@ -1,0 +1,23 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "GFU Test API",
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/api/tests": {
+            "get": {
+                "summary": "Index all Tests",
+                "operationId": "indexAllTests",
+                "responses": {
+                    "200": {
+                        "description": "All Tests"
+                    },
+                    "400": {
+                        "description": "Malformed Data"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -24,18 +24,18 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string',
-            'email'=> ['required', 'email'],
-            'password'=>'required|string'
+            'name' => 'required|string',
+            'email' => ['required', 'email'],
+            'password' => 'required|string',
         ];
     }
 
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
-            'data'      => $validator->errors()
+            'success' => false,
+            'message' => 'Validation errors',
+            'data' => $validator->errors(),
         ]));
 
     }

@@ -8,18 +8,20 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
     public function createUser(StoreUserRequest $request)
     {
         $user = User::create($request->validated());
+
         return response()->json($user);
     }
 
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $users = User::all();
+
         return UserResource::collection($users);
     }
 
@@ -28,11 +30,13 @@ class UserController extends Controller
         return view('user.list', ['users' => User::all()]);
     }
 
-    public function editUser(Request $request, User $user){
+    public function editUser(Request $request, User $user)
+    {
         return view('user.edit', ['user' => $user]);
     }
 
-    public function updateUser(UpdateUserRequest $request, User $user){
+    public function updateUser(UpdateUserRequest $request, User $user)
+    {
 
         $user->fill($request->validated());
 

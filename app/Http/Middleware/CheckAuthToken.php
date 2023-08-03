@@ -16,9 +16,10 @@ class CheckAuthToken
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->header('AuthToken') != 'LOREMIPSUM'){
+        if ($request->header('AuthToken') != 'LOREMIPSUM') {
             return new JsonResponse([], 403);
         }
+
         return $next($request);
     }
 }

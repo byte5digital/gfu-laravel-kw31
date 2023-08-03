@@ -8,20 +8,28 @@ use App\Http\Requests\UpdateTestRequest;
 use App\Http\Resources\TestResource;
 use App\Models\Test;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use OpenApi\Attributes as OA;
 
 class TestController extends Controller
 {
-
     public function __construct(
         protected TestContract $testContract
-    ){}
+    ) {
+    }
 
-    /**
-     * Display a listing of the resource.
-     */
+    #[OA\Get(
+        path: '/api/tests',
+        operationId: 'indexAllTests',
+        summary: 'Index all Tests',
+        responses: [
+            new OA\Response(response: Response::HTTP_OK, description: 'All Tests'),
+            new OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Malformed Data'),
+        ]
+    )]
     public function index()
     {
-       return TestResource::collection($this->testContract->getAllTests());
+        return TestResource::collection(Test::all());
     }
 
     /**
@@ -37,11 +45,11 @@ class TestController extends Controller
      */
     public function store(StoreTestRequest $request)
     {
-        try{
+        try {
             return new TestResource($this->testContract->createTest($request->validated()));
-        }
-        catch (\Exception $exception){
+        } catch (\Exception $exception) {
             \Log::error($exception->getMessage());
+
             return new JsonResponse([], 400);
         }
 
@@ -52,7 +60,7 @@ class TestController extends Controller
      */
     public function show(Test $test)
     {
-        return new TestResource($test);
+        return $this->testContract->getTestById($test->id);
     }
 
     /**
@@ -78,6 +86,7 @@ class TestController extends Controller
     public function destroy(Test $test)
     {
         $this->testContract->deleteTestById($test->id);
+
         return new JsonResponse([], 201);
     }
 }

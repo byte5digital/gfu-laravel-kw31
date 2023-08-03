@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('tests', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\User::class)->nullable(true);
-            $table->foreign('user_id')->references('id')->on('users');
+//            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

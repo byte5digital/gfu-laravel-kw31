@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+    Route::post('/login', [\App\Http\Controllers\AuthTokenController::class, 'login'])->name('token.login');
 
     Route::prefix('tests')->group(function () {
         Route::get('/', [TestController::class, 'index'])->name('tests.index');

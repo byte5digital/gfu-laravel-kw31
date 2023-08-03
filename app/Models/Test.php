@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $name
  * @property int $user_id
+ *
  * @method static \Database\Factories\TestFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Test newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Test newQuery()
@@ -22,7 +23,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Test whereUserId($value)
+ *
  * @property-read \App\Models\User|null $user
+ *
  * @mixin \Eloquent
  */
 class Test extends Model
@@ -30,6 +33,8 @@ class Test extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public $connection = 'mysql';
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -41,7 +46,7 @@ class Test extends Model
         $this->name = $jsonObject['title'];
         $this->user_id = $jsonObject['userId'];
         $this->id = $jsonObject['id'];
+
         return $this;
     }
-
 }

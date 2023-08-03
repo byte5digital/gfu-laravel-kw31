@@ -25,16 +25,16 @@ class StoreTestRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50'],
-            'user_id' => 'sometimes|exists:users,id'
+            'user_id' => 'sometimes',
         ];
     }
 
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
-            'data'      => $validator->errors()
+            'success' => false,
+            'message' => 'Validation errors',
+            'data' => $validator->errors(),
         ]));
 
     }

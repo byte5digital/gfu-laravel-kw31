@@ -17,10 +17,10 @@ class TestResource extends JsonResource
     {
         /** @var Test $this */
         return [
-            'id'=> $this->id,
-            'name'=> $this->name,
-            'user'=> new UserResource($this->user),
-            'user_raw' => $this->user
+            'id' => $this->id,
+            'name' => $this->name,
+            'user' => new UserResource($this->user),
+            'user_raw' => $this->user,
         ];
     }
 }
