@@ -8,6 +8,7 @@ use App\Http\Requests\StoreTestRequest;
 use App\Http\Requests\UpdateTestRequest;
 use App\Http\Resources\TestResource;
 use App\Models\Test;
+use Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use OpenApi\Attributes as OA;
@@ -21,6 +22,8 @@ class TestController extends Controller
 
     public function triggerBackendEvent()
     {
+        $user = Auth::user();
+        $user->returnIdFromModel();
         event(new HelloWorldEvent());
     }
 
@@ -35,7 +38,8 @@ class TestController extends Controller
     )]
     public function index()
     {
-        return TestResource::collection(Test::all());
+
+        return TestResource::collection(Test::with(['user'])->get());
     }
 
     /**

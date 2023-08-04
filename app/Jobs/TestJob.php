@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\DoTheApiCallEvent;
 use App\Models\Test;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,5 +33,6 @@ class TestJob implements ShouldQueue
             $test->name .= ' changed by queue';
             $test->save();
         }
+        event(new DoTheApiCallEvent());
     }
 }

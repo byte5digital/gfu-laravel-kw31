@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LoginEvent;
+use Auth;
 use Illuminate\Http\Request;
 
 class AuthTokenController extends Controller
@@ -20,6 +22,7 @@ class AuthTokenController extends Controller
 
     protected function respondWithToken($token)
     {
+        event(new LoginEvent(Auth::user()));
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Contracts\TestContract;
+use App\Http\Services\TestApiService;
 use App\Http\Services\TestService;
 use Illuminate\Support\ServiceProvider;
 
