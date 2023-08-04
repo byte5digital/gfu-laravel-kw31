@@ -22,9 +22,9 @@ class TestController extends Controller
 
     public function triggerBackendEvent()
     {
-        $user = Auth::user();
-        $user->returnIdFromModel();
-        event(new HelloWorldEvent());
+//        $user = Auth::user();
+//        $user->returnIdFromModel();
+        (new HelloWorldEvent())::dispatch();
     }
 
     #[OA\Get(

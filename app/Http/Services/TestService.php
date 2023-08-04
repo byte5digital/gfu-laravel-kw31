@@ -4,6 +4,9 @@ namespace App\Http\Services;
 
 use App\Http\Contracts\User;
 use App\Models\Test;
+use File;
+use League\Flysystem\FilesystemException;
+use Storage;
 
 class TestService implements \App\Http\Contracts\TestContract
 {
@@ -46,6 +49,16 @@ class TestService implements \App\Http\Contracts\TestContract
 
     public function createTest(array $values): ?Test
     {
+        try{
+            Storage::disk('s3')->allFiles(); // S3 Storage
+            Storage::allFiles(); // local Storage
+            Storage::deleteDirectory();
+            // File::hasSameHash($file1, $file2);
+        }
+        catch (FilesystemException $fsException){
+
+        }
+
         return Test::create($values);
     }
 
